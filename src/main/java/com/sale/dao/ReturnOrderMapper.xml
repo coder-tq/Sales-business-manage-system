@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sale.dao.ReturnOrderMapper">
+    <!--    新增-->
+    <select id="addOrder" parameterType="com.sale.pojo.SalesReturnOrder" resultType="java.lang.Integer">
+        INSERT INTO sale_return_note VALUES ( '${id}', '${order_date}', '${warehouse}', '${worker}', '${bar_code}', '${advance_payment}', '${account}', '${customer}', '${supplier}', '${order_id}', '${note}' )
+    </select>
+
+    <!--    查询-->
+    <select id="queryAllOrder" resultType="com.sale.pojo.SalesReturnOrder">
+        SELECT * FROM sale_return_note
+    </select>
+    <select id="queryOrder" resultType="com.sale.pojo.SalesReturnOrder">
+        SELECT * FROM sale_return_note WHERE id LIKE '%${id}%' AND order_date Like '%${order_date}%' AND worker LIKE '%${worker}%'
+    </select>
+
+    <!--    删除-->
+    <delete id="deleteOrder" parameterType="java.lang.String">
+        DELETE FROM sale_return_note WHERE id = ${id};
+    </delete>
+</mapper>

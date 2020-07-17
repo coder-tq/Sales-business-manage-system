@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sale.dao.OrderStatusMapper">
+
+    <resultMap id="OrderStatus" type="com.sale.pojo.OrderStatus">
+
+        <result column="billing_date" property="Billing_date"/>
+        <result column="completion_status" property="Completion_status"/>
+        <result column="customer" property="Customer"/>
+        <result column="order_number" property="Order_number"/>
+        <result column="company" property="Company"/>
+        <result column="order_name" property="Order"/>
+        <result column="order_quantity" property="Order_quantity"/>
+        <result column="quantity_completed" property="Quantity_completed"/>
+        <result column="unfinished_quantity" property="Unfinished_quantity"/>
+        <result column="remarks" property="Remarks"/>
+    </resultMap>
+    <select id="queryAllOrderStatus" resultMap="OrderStatus">
+      select * from sale_situationlist
+   </select>
+    
+    <update id="updateOrderStatus" parameterType="OrderStatus">
+        update sale_situationlist set billing_date = '${Billing_date}', completion_status='${Completion_status}', customer='${Customer}',company = '${Company}', order_name= '${Order}',order_quantity= '${Order_quantity}', quantity_completed= '${Quantity_completed}'
+         ,unfinished_quantity= '${Unfinished_quantity}',remarks= '${Remarks}' where order_number = '${Order_number}';
+    </update>
+
+    <insert id="insertOrderStatus" parameterType="OrderStatus">
+<!--        <selectKey keyColumn="order_number" keyProperty="order_number" order="AFTER"
+                   resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>-->
+        insert into sale_situationlist (billing_date, completion_status, customer,order_number, company, order_name, order_quantity, quantity_completed, unfinished_quantity, remarks) values ('${Billing_date}','${Completion_status}','${Customer}','${order_number}','${Company}','${Order}','${Order_quantity}'
+        ,'${Quantity_completed}','${Unfinished_quantity}','${Remarks}');
+    </insert>
+
+    <delete id="deleteOrderStatusByOrder_number" parameterType="int">
+        delete from sale_situationlist where order_number = ${Order_number};
+    </delete>
+
+    <select id="queryOrderStatusByOrder_number" parameterType="int" resultMap="OrderStatus">
+        select * from sale_situationlist where order_number = ${Order_number};
+    </select>
+</mapper>

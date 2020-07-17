@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sale.dao.Sale_OrderListandPriceListMapper">
+
+    <!--<resultMap id="sale_OrderList" type="com.sale.pojo.Sale_OrderList">
+        <result column="id" property="Id"/>
+        <result column="name" property="Name"/>
+        <result column="password" property="Password"/>
+        <result column="address" property="Address"/>
+        <result column="email" property="Email"/>
+        <result column="phone" property="Phone"/>
+        <result column="sex" property="Sex"/>
+    </resultMap>-->
+
+    <!--删除订单-->
+    <delete id="deleteSale_OrderListBysales_order_number" parameterType="String">
+        delete from web_database.sale_orderlist where sales_order_number = ${sales_order_number}
+    </delete>
+    <!--根据销售订单号查询订单-->
+    <select id="querySale_OrderListBysales_order_number" parameterType="String" resultType="Sale_OrderList">
+        select * from web_database.sale_orderlist where sales_order_number = '${sales_order_number}'
+    </select>
+
+    <!--根据日期查询订单-->
+    <select id="querySale_OrderListBytime" parameterType="String" resultType="Sale_OrderList">
+        select * from web_database.sale_orderlist where time = '${time}'
+    </select>
+
+    <!--根据员工姓名查询订单-->
+    <select id="querySale_OrderListByworker_name" parameterType="String" resultType="Sale_OrderList">
+        select * from web_database.sale_orderlist where worker_name = '${worker_name}'
+    </select>
+
+    <select id="queryAllSale_OrderList" resultType="Sale_OrderList">
+      select * from web_database.sale_orderlist
+   </select>
+
+    <!--添加销售订单-->
+    <insert id="insertSale_OrderList" parameterType="Sale_OrderList">
+        insert into web_database.sale_orderlist (sales_order_number,time,warehouse_id_number,worker_id_number,bar_code,advance_payment,account,commodity_id_number,customer_id_number,remarks,worker_name)
+        values (#{sales_order_number},#{time},#{warehouse_id_number},#{worker_id_number},#{bar_code},#{advance_payment},#{account},#{commodity_id_number},#{customer_id_number},#{remarks},#{worker_name});
+    </insert>
+
+    <!--添加销售定价表-->
+    <insert id="insertSale_PriceList" parameterType="Sale_PriceList">
+        insert into web_database.sale_pricelist (sales_price_number,preparation_date,commodity_id_number,warehouse_id_number,customer_id_number,supplier_id_number,operator_id_number,unit,remarks)
+        values (#{Sales_Price_Number},#{Preparation_Date},#{Commodity_Id_Number},#{Warehouse_Id_Number},#{Customer_Id_Number},#{Supplier_Id_Number},#{Operator_Id_Number},#{Unit},#{Remarks});
+    </insert>
+    <!--删除销售定价表-->
+    <delete id="deleteSale_PriceListByNumber" parameterType="String">
+        delete from web_database.sale_pricelist where sales_price_number = ${Sales_Price_Number}
+    </delete>
+
+    <!--查询全部信息-->
+    <select id="queryAllSale_PriceList" resultType="Sale_PriceList">
+        select * from  web_database.sale_pricelist;
+    </select>
+</mapper>
