@@ -4,4 +4,4 @@
 
 数据库配置位于src/main/resorces/database.propreies
 
-数据库备份
+数据库备份为web_database.sql
